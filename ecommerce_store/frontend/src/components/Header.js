@@ -3,17 +3,20 @@
 import {useState} from 'react';
 import {Flex,Heading, Link, Box, Icon} from '@chakra-ui/react';
 import {HiShoppingBag, HiUser, HiOutlineMenuAlt3} from 'react-icons/hi';
-
+import {Link as RouterLink} from 'react-router-dom';
 
 // A helper component which will be used internally by our Box
 // children is whateber will be put between the <MenuItems> tag.
 
 // Essentially this is something that each of the options in our header
 // will be.
+
+// We have made the Link a RouterLink, in order to prevent reloading
 const MenuItems = ({children,url}) => {
     return(
         <Link
-        href={url}
+        as={RouterLink}
+        to={url}
         mt={{base: 4 , md: 0}}
         fontSize="sm"
         color="whiteAlpha.800"
@@ -65,11 +68,12 @@ const Header = () => {
                 mr={{md: '1rem', base: 0}}
                 >
                     <Link 
-                        href="/" 
+                        as={RouterLink}
+                        to="/" 
                         // hover effect
                         _hover={{color:'whiteAlpha.700', textDecor: 'none'}}
                         >
-                        RST Store
+                        Ecommerce Store
                     </Link>
 
                 </Heading>
@@ -93,7 +97,7 @@ const Header = () => {
                 display={{sm: show ? 'block' : 'none', md:'flex' }}
                 //display={{sm: }}
                 >
-                <MenuItems url="/"> 
+                <MenuItems url="/cart"> 
                     <Flex alignItems="center">
                         <Icon as={HiShoppingBag} w="4" h="4" mr="1"/>
                         Cart

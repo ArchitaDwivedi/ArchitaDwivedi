@@ -1,4 +1,7 @@
 //----------------------------- VERSION 1 ---------------------------------//
+// We have imported this Link from react-router-dom to prevent our Anchor tag's
+// (Link componenet in Chakra UI) default page reload behaviour. 
+import {Link as RouterLink} from 'react-router-dom';
 import {Box, Link, Image, Flex, Heading, Text} from '@chakra-ui/react';
 import Rating from './Rating';
 // we will accept a product object and then display its info in a particulat manner on 
@@ -10,7 +13,14 @@ const Product = ({product}) => {
     return (
         // when someone clicks our product image, we will push that 
         // person to the /product/<whateve_Was_the_product_id>
-        <Link href={`/product/${product._id}`} _hover={{textDecor: 'none'}}>
+
+        // Making Link as RouterLink to prevent page reloading, but still
+        // preserving the Chakri UI's properties and style.
+        // Instead of href we will use 'to' since that is required with RouterLink.
+        // Now if you click on individual products, nothing will reload, but just
+        // change normally.
+        // The same needs to be done in our header too.
+        <Link as={RouterLink} to={`/product/${product._id}`} _hover={{textDecor: 'none'}}>
             <Box
             maxW="sm"
             borderRadius="lg"
