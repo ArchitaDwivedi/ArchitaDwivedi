@@ -118,17 +118,31 @@ import colors from 'colors';
 import morgan from 'morgan';
 import products from './data/products.js';
 import connectDB from './config/db.js';
+import productRoutes from './routes/productRoutes.js';
+import {notFound, errorHandler} from './middleware/errorMiddleware.js';
+
+
 
 dotenv.config();
+
+
 
 // before our app even runs we want to connect to db
 connectDB();
 
 
+
+
+// our main app
 const app = express();
 
 
+
+
+// using morgan middleware
 app.use(morgan());
+
+
 
 
 app.get('/', (req,res) => {
@@ -137,19 +151,27 @@ app.get('/', (req,res) => {
 })
 
 
-// To get all products' detail
-app.get('/api/products', (req,res) => {
-    // res.send() sends back HTML.
-    // TO send back JSON, just do res.json()
-    res.json(products);
-})
 
-app.get('/api/products/:id', (req,res) => {
-    const product = products.find( (prod) => prod._id === req.params.id)
-    res.json(product);
-})
+
+// All product related routes will go here
+app.use('/api/products', productRoutes)
+
+// // All user related routes will go here
+// app.use('/api/users', userRoutes)
+
+// // All order related routes will go here
+// app.use('/api/orders', orderRoutes)
+
+
+app.use(notFound);
+app.use(errorHandler);
+
 
 // get env variable.
 const PORT = process.env.PORT || 5000;
 
+
+
+
+// listen on port 5000
 app.listen(PORT, console.log(`Server runnning on ${PORT}`.yellow.bold));

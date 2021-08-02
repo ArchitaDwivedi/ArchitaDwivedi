@@ -95,6 +95,8 @@ const productSchema = mongoose.Schema({
 );
 
 // building a model using our Schema
+// Now that we've built a model, we can use Mongoose's inbuilt
+// methods to talk to our MongoDB.
 const Product = mongoose.model('Product', productSchema);
 
 
