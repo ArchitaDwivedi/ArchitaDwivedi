@@ -12,21 +12,36 @@ import thunk from 'redux-thunk';
 // via the extension we downloaded. It lays out a proper diagram for us to see.
 // to use it we just import it here.
 import {composeWithDevTools} from 'redux-devtools-extension';
-import {productListReducer} from './reducers/productReducer';
-
+import {productListReducer,productDetailsReducer} from './reducers/productReducer';
+import {cartReducer} from './reducers/cartReducer';
 
 // This is where we'll write all our reducers and the states that they
 // will impact/change.
 const reducer = combineReducers({
     // so productListReducer is going to update the value of p roductList.
     productList: productListReducer,
-
-
+    productDetails: productDetailsReducer,
+    cart: cartReducer,
 });
+
+
+
+// Get any item that is present in the localStorage
+// Since it will be stored in a string format, we need to
+// convert it to JSON, so we use JSON.parse()
+const cartItemsFromStorage = localStorage.getItem('cartItems') ? 
+    JSON.parse(localStorage.getItem('cartItems'))
+    : [];
+
+
 
 // Our Global Store will initially have nothing
 // if we wanted we could initialize this with some data
-const initialState = {};
+// If some content is already present in localStorage, set that as initialState
+// else just put an empty array
+const initialState = {cart: {cartItems: cartItemsFromStorage}};
+
+
 
 
 // All the middleware that we will use. You can add as many as
@@ -36,6 +51,9 @@ const initialState = {};
 // we know that it is responsible to keep track of all the requests, actions, etc. 
 // i.e so that it could read everything in our store.
 const middleware = [thunk];
+
+
+
 
 // creating the global store
 const store = createStore(

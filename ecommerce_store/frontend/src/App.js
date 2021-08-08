@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
-
+import CartScreen from './screens/CartScreens';
 
 // making an arrow function called 'App' which
 // returns some JSX that Babel will convert to vanilla JS for the browser to understand.
@@ -26,6 +26,11 @@ const App = () => {
             <Flex as="main" direction="column" mt="72px" minH="xl" py="6" px="6" bgColor="gray.100">
                 <Route path="/" exact component={HomeScreen} />
                 <Route path="/product/:id" component={ProductScreen} />
+                {/* The reason we have put a ? is because, we want the id part
+                to be optional. This means, if someone just tries to go to /cart, they
+                should still be redirected to the cart page and if they happen to come
+                with any id. They should still be able to do so.*/}
+                <Route path="/cart/:id?" component={CartScreen} />
             </Flex>
             <Footer/>
         </Router>

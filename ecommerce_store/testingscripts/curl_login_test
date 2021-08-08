@@ -1,0 +1,21 @@
+# Objective:-
+# Below is a cURL command to test and see if we can get back a response from
+# our server after we have made a post request with some data.
+# In this case, we want to get back details about a particular use after having
+# sent that user's email and password in the post request's payload.
+
+
+# How to use:-
+# First, start your server.
+# Copy the command below.
+# Go to your terminal/cmd. Paste it and run.
+
+
+# Command:-
+
+curl --location --request POST 'http://localhost:5000/api/users/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "john@example.com",
+    "password": "123456"
+}'

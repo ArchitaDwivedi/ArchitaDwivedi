@@ -1,0 +1,13 @@
+# Objective:-
+# Below is a cURL command to GET all products
+
+
+# How to use:-
+# First, start your server.
+# Copy the command below.
+# Go to your terminal/cmd. Paste it and run.
+
+
+# Command:-
+
+curl --location --request GET 'http://localhost:5000/api/products/'

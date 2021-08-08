@@ -1,9 +1,13 @@
+// FOR ALL PRODUCTS
 // THis is where we change our global store's value
 // all product related variables in our global store will be updated
 // from the functions here
 import {PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
-    PRODUCT_LIST_FAIL} from '../constants/productConstants'
+    PRODUCT_LIST_FAIL,
+    PRODUCT_DETAILS_FAIL,
+    PRODUCT_DETAILS_SUCCESS,
+    PRODUCT_DETAILS_REQUEST} from '../constants/productConstants'
 
 export const productListReducer = (state = {products: []}, action) => {
     // The reason we're choosing these values in our cases
@@ -39,3 +43,30 @@ export const productListReducer = (state = {products: []}, action) => {
 };
 
 
+
+
+
+
+
+
+// FOR SINGLE PRODUCT
+// Product will contain product details and also an array of reviews
+export const productDetailsReducer = (
+    state = { product: {reviews: []} } ,
+    action) => {
+        switch(action.type){
+            
+            case PRODUCT_DETAILS_REQUEST:
+                // this will contain details of 
+                // whatever product you want to see, or something
+                // you saw previously
+                return {...state, loading: true};
+            case PRODUCT_DETAILS_SUCCESS:
+                // fill with new details
+                return {loading: false, product: action.payload};
+            case PRODUCT_LIST_FAIL:
+                return {loading: false, error: action.payload};
+            default:
+                return state;
+        }
+};

@@ -116,11 +116,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import morgan from 'morgan';
-import products from './data/products.js';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import {notFound, errorHandler} from './middleware/errorMiddleware.js';
-
+ 
 
 
 dotenv.config();
@@ -135,7 +135,7 @@ connectDB();
 
 // our main app
 const app = express();
-
+app.use(express.json());
 
 
 
@@ -154,10 +154,10 @@ app.get('/', (req,res) => {
 
 
 // All product related routes will go here
-app.use('/api/products', productRoutes)
+app.use('/api/products', productRoutes);
 
 // // All user related routes will go here
-// app.use('/api/users', userRoutes)
+app.use('/api/users', userRoutes);
 
 // // All order related routes will go here
 // app.use('/api/orders', orderRoutes)
