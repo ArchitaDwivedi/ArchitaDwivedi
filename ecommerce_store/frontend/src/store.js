@@ -14,6 +14,9 @@ import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {productListReducer,productDetailsReducer} from './reducers/productReducer';
 import {cartReducer} from './reducers/cartReducer';
+import {userLoginReducer} from './reducers/userReducer';
+
+
 
 // This is where we'll write all our reducers and the states that they
 // will impact/change.
@@ -22,6 +25,7 @@ const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
+    userLogin: userLoginReducer,
 });
 
 
@@ -35,11 +39,22 @@ const cartItemsFromStorage = localStorage.getItem('cartItems') ?
 
 
 
+// Once our user logs in we want to store their info in our local storage
+const userInfoFromStorage = localStorage.getItem('userInfo') ? 
+    JSON.parse(localStorage.getItem('userInfo'))
+    : {};
+
+
+
 // Our Global Store will initially have nothing
 // if we wanted we could initialize this with some data
 // If some content is already present in localStorage, set that as initialState
 // else just put an empty array
-const initialState = {cart: {cartItems: cartItemsFromStorage}};
+const initialState = {
+    cart: {cartItems: cartItemsFromStorage},
+    userLogin: {userInfo: userInfoFromStorage}
+                    
+};
 
 
 

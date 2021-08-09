@@ -45,10 +45,6 @@ export {authUser};
 
 
 
-
-
-
-
 // ------------ VERSION 2 -------------------- //
 // This is where we do our authentication bit
 import asyncHandler from 'express-async-handler';
@@ -93,4 +89,84 @@ const authUser = asyncHandler( async (req, res) => {
 });  
 
 
-export { authUser };
+
+
+
+
+
+
+const getUserProfile = asyncHandler( async (req, res) => {
+
+    // There is nothing like user._id on req. So we will be 
+    // making a middleware which will add this on req so we
+    // can access it.
+    const user = await User.findById(req.user._id);
+
+    // if the user exists
+    // we check if the the entered password is right
+    // The comparing is going to take time, which is why in our userModel
+    // if you see, our function is async. So we must await here for the function to respond.
+    // (Or else we would have to use .then() which is something we dont want to do.)
+    if (user) {
+
+        // now we can send some json data back. No token here because
+        // this is not the login
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        })
+    } else {
+        // if user does not exist, then we'll just create a 404.
+        // (When we trhow an Error it will go to middleware which will convert it to JSON)
+        res.status(404);
+        throw new Error('User not found!');
+    }
+});  
+
+
+
+
+
+
+
+
+
+const registerUser = asyncHandler(async(req,res) =>{
+    const {name, email, password} = req.body;
+
+    // to check if user already exists!
+    const userExists = await User.findOne({email});
+
+
+    if (userExists){
+        res.status(400); // Bad req
+        throw new Error('User already exists!');
+    } 
+        
+    const user = await User.create({name, email, password});
+
+
+    // Remember that our password is still not encryted!!
+    if (user){
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            // once the user registers succesfully, we'll immediately generate a token for
+            // them, so they can login
+            token: generateToken(user._id)
+        }); // succes: something was succefully created!
+
+    } else{
+        res.status(400);
+        throw new Error('Invalid user data!');
+    }
+    
+});
+
+
+
+export { authUser , getUserProfile, registerUser};

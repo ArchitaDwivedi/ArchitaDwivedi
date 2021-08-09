@@ -1,6 +1,6 @@
 # Objective:-
-# Below is a cURL command to GET one product using id
-
+# Below is a cURL command using which we try to get the user's information. We
+# send a bearer token along with us since the route is protected.
 
 # How to use:-
 # First, start your server.

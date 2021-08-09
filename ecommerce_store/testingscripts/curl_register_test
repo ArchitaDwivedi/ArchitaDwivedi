@@ -1,0 +1,21 @@
+# Objective:-
+# Below is a cURL command which sends data (post) and registers a user if they do not already exist.
+# Once registered, we get back user details and a newly generated token so the user can immediately 
+# go and login if they want to.
+
+
+
+# How to use:-
+# First, start your server.
+# Copy the command below.
+# Go to your terminal/cmd. Paste it and run.
+
+
+# Command:-
+curl --location --request POST 'http://localhost:5000/api/users/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Jillian Doe",
+    "email": "jillian@example.com",
+    "password": "123456"
+}'
