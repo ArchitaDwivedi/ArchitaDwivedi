@@ -9,6 +9,11 @@ import CartScreen from './screens/CartScreens';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import PaymentScreen from './screens/PaymentScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
+
 // making an arrow function called 'App' which
 // returns some JSX that Babel will convert to vanilla JS for the browser to understand.
 const App = () => {
@@ -26,6 +31,10 @@ const App = () => {
         <Router>
             <Header/>
             <Flex as="main" direction="column" mt="72px" minH="xl" py="6" px="6" bgColor="gray.100">
+                <Route path="/order/:id" component={OrderScreen} />
+                <Route path="/placeorder" component={PlaceOrderScreen} />
+                <Route path="/payment" component={PaymentScreen} />
+                <Route path="/shipping" component={ShippingScreen} />
                 <Route path="/profile" component={ProfileScreen}/>
                 <Route path="/register" component={RegisterScreen}/>
                 <Route path="/login" component={LoginScreen}/>

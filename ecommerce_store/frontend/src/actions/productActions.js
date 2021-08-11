@@ -1,12 +1,17 @@
 import axios from 'axios';
 // our actions will dispatch the action object to our reducer
 // i.e the one with the 'type' and payload. So we need to import the 'types'
-import {PRODUCT_LIST_FAIL,
-    PRODUCT_LIST_SUCCESS,
-    PRODUCT_LIST_REQUEST,
-    PRODUCT_DETAILS_FAIL,
-    PRODUCT_DETAILS_SUCCESS,
-    PRODUCT_DETAILS_REQUEST} from '../constants/productConstants';
+import {
+  PRODUCT_LIST_REQUEST,
+  PRODUCT_LIST_SUCCESS,
+  PRODUCT_LIST_FAIL,
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_FAIL,
+} from '../constants/productConstants';
+
+
+
 
 
 
@@ -18,31 +23,36 @@ import {PRODUCT_LIST_FAIL,
 // Also, since this isnt the backend, we will directly use try catch instead of asyncHandler.
 // Redux, gives you the dispatch function that you can accept and use.
 export const listProducts = () => async (dispatch) => {
+  try {
 
-    try{
-        // dispatch the action object and will execute reducer function to this type.
-        dispatch({type: PRODUCT_LIST_REQUEST});
+// dispatch the action object and will execute reducer function to this type.
+    dispatch({ type: PRODUCT_LIST_REQUEST });
+
 
         // make a get request to get the data
-        const {data} = await axios.get('/api/products');
+    const { data } = await axios.get('/api/products');
 
 
         // dispatch the success if successful
-        dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
 
-        // we're getting this error from axios. So we check if it has
+            // we're getting this error from axios. So we check if it has
         // the response property on it and if the data.message
-    } catch (error) {
-
-        dispatch({type: PRODUCT_LIST_FAIL, 
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
             // if you have given your own custom message then we prefer to display
             // that else we will display the default error message we get
-            paylaod: error.response && error.response.data.message 
-            ? error.response.data.message : error.message});
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
-    }
 
-}
+
 
 
 
@@ -55,29 +65,26 @@ export const listProducts = () => async (dispatch) => {
 
 // this time we must accept an id which we'll get from our params
 export const listProductDetails = (id) => async (dispatch) => {
-
-    try{
+  try {
         // dispatch the action object and will execute reducer function to this type.
-        dispatch({type: PRODUCT_DETAILS_REQUEST});
-
-
+    dispatch({ type: PRODUCT_DETAILS_REQUEST });
         // make a get request to get the data
-        const {data} = await axios.get(`/api/products/${id}`);
-
-
+    const { data } = await axios.get(`/api/products/${id}`);
         // dispatch the success if successful
-        dispatch({type: PRODUCT_DETAILS_SUCCESS, payload: data});
+    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
 
         // we're getting this error from axios. So we check if it has
         // the response property on it and if the data.message
-    } catch (error) {
-
-        dispatch({type: PRODUCT_DETAILS_FAIL, 
+  } 
+  catch (error) {
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
             // if you have given your own custom message then we prefer to display
             // that else we will display the default error message we get
-            paylaod: error.response && error.response.data.message 
-            ? error.response.data.message : error.message});
-
-    }
-
-}
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

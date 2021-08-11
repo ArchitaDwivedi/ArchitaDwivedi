@@ -62,7 +62,7 @@ const CartScreen = ({match, history, location}) => {
     const checkoutHandler = () => {
         // we're adding this parameter, incase the user was not logged in.
         // Once they log in, we will redirect them to the shipping page.
-        history.push('/login?redirect="shipping"');
+        history.push('/login?redirect=shipping');
 
 
     };

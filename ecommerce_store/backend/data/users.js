@@ -1,7 +1,5 @@
 import bcrypt from 'bcryptjs';
 
-// We're using bcrypt for temporary use
-// Hashing our password
 const users = [
   {
     name: 'Administrator',

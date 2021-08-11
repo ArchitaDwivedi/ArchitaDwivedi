@@ -1,8 +1,7 @@
 // Creating JWT Token
 import jwt from 'jsonwebtoken';
 
-// In our token, we want to put the user's id, so we accept an id.
- const generateToken = (id) => {
+const generateToken = (id) => {
     // Now we will return a jwt.sign to create a token. We will give
     // and id to it. If we wanted we could give a name, etc as well.
     // Essentially anything that can go in a payload.
@@ -16,8 +15,7 @@ import jwt from 'jsonwebtoken';
     // The last arg is some special options that we can give.
     // Eg:- expiry date, etc. Here our user will be authenticated for
     // 30 days.
-    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '30d'});
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+};
 
- };
-
- export default generateToken;
+export default generateToken;

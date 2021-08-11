@@ -1,37 +1,66 @@
-import {CART_ADD_ITEM,CART_REMOVE_ITEM} from '../constants/cartConstants';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
+} from '../constants/cartConstants';
 
+export const cartReducer = (
+  state = { cartItems: [], shippingAddress: {} },
+  action
+) => {
+  switch (action.type) {
+    case CART_ADD_ITEM:
+      // first get the item the user wants to put in the cart
+      const item = action.payload;
 
-export const cartReducer = (state = {cartItems: []}, action) => {
-    switch(action.type){
-        case CART_ADD_ITEM:
-            // first get the item the user wants to put in the cart
-            const item = action.payload
-
-            // A person could repeat an item. So, we check to see if the item is 
+ // A person could repeat an item. So, we check to see if the item is 
             // already present in cart
             // ** The 'product' here is the id of our product. This is defined in the Actions file
-            const existItem = state.cartItems.find((i) => i.product === item.product);
+      const existItem = state.cartItems.find((i) => i.product === item.product);
 
-            // if yes
-            if (existItem) {
+           // if yes
+      if (existItem) {
             // we check to see if the item is 
             // already present in cart. If yes then we replace it with the existing one. 
             // Otherwise we just append the item.
 
             // ...state: if there is already something in state( from the localStorage ) store that first.
-                return {...state, cartItems: state.cartItems.map( (i) => i.product === existItem.product ? item : i)
-                };
-            }
-            else{
+        return {
+          ...state,
+          cartItems: state.cartItems.map((i) =>
+            i.product === existItem.product ? item : i
+          ),
+        };
+      } 
+      else {
                 // append the new item
-                return {...state, cartItems: [...state.cartItems, item]}
-            }
+        return { ...state, cartItems: [...state.cartItems, item] };
+      }
+    
 
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((i) => i.product !== action.payload),
+      };
+    
 
-        case CART_REMOVE_ITEM:
-            return {...state, cartItems: state.cartItems.filter(i => i.product !== action.payload)};
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
+    
 
-        default:
-            return state;
-    };
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
+      };
+    
+
+    default:
+      return state;
+  }
 };

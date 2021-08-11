@@ -9,7 +9,7 @@ const products = [
     price: 12000,
     countInStock: 22,
     rating: 1.5,
-    numReviews: 4
+    numReviews: 4,
   },
   {
     name: 'Pack of 2 Round Neck T-Shirts',
@@ -21,7 +21,7 @@ const products = [
     price: 8500,
     countInStock: 42,
     rating: 4.4,
-    numReviews: 2
+    numReviews: 2,
   },
   {
     name: 'Native Youth',
@@ -33,7 +33,7 @@ const products = [
     price: 6000,
     countInStock: 18,
     rating: 4.5,
-    numReviews: 2
+    numReviews: 2,
   },
   {
     name: 'Print Crop Lounge Top',
@@ -45,7 +45,7 @@ const products = [
     price: 21000,
     countInStock: 8,
     rating: 4.8,
-    numReviews: 12
+    numReviews: 12,
   },
   {
     name: 'Crochet Detail Lightweight Top',
@@ -57,7 +57,7 @@ const products = [
     price: 43000,
     countInStock: 6,
     rating: 4.9,
-    numReviews: 8
+    numReviews: 8,
   },
   {
     name: 'Juventus Henley Neck Jersey',
@@ -69,7 +69,7 @@ const products = [
     price: 16000,
     countInStock: 21,
     rating: 4.1,
-    numReviews: 3
+    numReviews: 3,
   },
   {
     name: 'Mavericks Drake Tank Top',
@@ -81,7 +81,7 @@ const products = [
     price: 7500,
     countInStock: 25,
     rating: 3.4,
-    numReviews: 3
+    numReviews: 3,
   },
   {
     name: 'Printed Polo Collar T-shirt',
@@ -93,12 +93,8 @@ const products = [
     price: 9500,
     countInStock: 0,
     rating: 4.2,
-    numReviews: 5
-  }
-]
+    numReviews: 5,
+  },
+];
 
-// ES module syntax
-export default products
-
-
-// module.exports = products;
+export default products;

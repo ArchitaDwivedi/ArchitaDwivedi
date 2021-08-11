@@ -1,8 +1,3 @@
-// This is just a temporary script that is unrealted to our project.
-// We are just using this to populate our mongodb externally with the data
-// in our users.js file.
-
-// We'll make a script in our root's package.json to run this file
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import colors from 'colors';

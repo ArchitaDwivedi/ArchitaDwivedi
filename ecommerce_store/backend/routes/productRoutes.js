@@ -1,3 +1,25 @@
+import express from 'express';
+// import the logic bit here
+import {
+  getProducts,
+  getProductById,
+} from '../controllers/productController.js';
+
+const router = express.Router();
+
+// if someone tries to go to /, we could chain multiple requests
+// .get().post(),etc
+// i.e if someone tries to get or post,etc.
+router.route('/').get(getProducts);
+
+router.route('/:id').get(getProductById);
+
+export default router;
+
+
+
+
+
 // // This is where we will add all product related routes
 // // and how to handle them.
 // // i.e to fetch data, if we want to update, etc.
@@ -83,38 +105,3 @@
 
 
 // export default router;
-
-
-
-
-
-
-
-
-
-
-
-// -------------------------- VERSION 2 -------------------------- //
-import express from 'express';
-// import the logic bit here
-import {getProductById,getProducts} from '../controllers/productController.js';
-
-
-
-const router = express.Router();
-
-
-
-// if someone tries to go to /, we could chain multiple requests
-// .get().post(),etc
-// i.e if someone tries to get or post,etc.
-router.route('/').get(getProducts);
-
-
-
-router.route('/:id').get(getProductById);
-
-
-
-export default router;
-
