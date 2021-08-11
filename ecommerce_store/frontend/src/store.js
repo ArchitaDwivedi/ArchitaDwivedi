@@ -14,7 +14,11 @@ import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {productListReducer,productDetailsReducer} from './reducers/productReducer';
 import {cartReducer} from './reducers/cartReducer';
-import {userLoginReducer} from './reducers/userReducer';
+import {userLoginReducer, 
+    userRegisterReducer, 
+    userDetailsReducer, 
+    userUpdateProfileReducer
+} from './reducers/userReducer';
 
 
 
@@ -26,6 +30,9 @@ const reducer = combineReducers({
     productDetails: productDetailsReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
+    userRegister: userRegisterReducer,
+    userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer,
 });
 
 
@@ -33,16 +40,19 @@ const reducer = combineReducers({
 // Get any item that is present in the localStorage
 // Since it will be stored in a string format, we need to
 // convert it to JSON, so we use JSON.parse()
-const cartItemsFromStorage = localStorage.getItem('cartItems') ? 
-    JSON.parse(localStorage.getItem('cartItems'))
-    : [];
+const cartItemsFromStorage = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems'))
+  : [];
+
 
 
 
 // Once our user logs in we want to store their info in our local storage
-const userInfoFromStorage = localStorage.getItem('userInfo') ? 
-    JSON.parse(localStorage.getItem('userInfo'))
-    : {};
+// we've made the second option null cause we dont want to have any object at all
+// if the user is not logged in. Not even in an empty object.
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
 
 
 
@@ -51,10 +61,10 @@ const userInfoFromStorage = localStorage.getItem('userInfo') ?
 // If some content is already present in localStorage, set that as initialState
 // else just put an empty array
 const initialState = {
-    cart: {cartItems: cartItemsFromStorage},
-    userLogin: {userInfo: userInfoFromStorage}
-                    
-};
+    cart: { cartItems: cartItemsFromStorage },
+    userLogin: { userInfo: userInfoFromStorage },
+  };
+  
 
 
 
@@ -72,11 +82,11 @@ const middleware = [thunk];
 
 // creating the global store
 const store = createStore(
-    reducer, 
-    initialState, 
+    reducer,
+    initialState,
     composeWithDevTools(applyMiddleware(...middleware))
-    );
- 
+  );
+  
   
 export default store;
 

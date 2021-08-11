@@ -169,4 +169,52 @@ const registerUser = asyncHandler(async(req,res) =>{
 
 
 
-export { authUser , getUserProfile, registerUser};
+
+
+// Updating user profile
+const updateUserProfile = asyncHandler( async (req, res) => {
+
+    //(*)user is MongoDB object
+    const user = await User.findById(req.user._id);
+
+
+
+    if (user) {
+        // if name updated then change, else keep the same
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+
+        // if req.body.passsword exists in the first place, only
+        // then we update it. Else ignore it altogether.
+        if (req.body.password){
+            user.password = req.body.password
+        }
+        
+        // The save() function, is the one which actually goes and writes i.e updates
+        // we will get the entire object back on saving.
+        // make sure 'user' is a mongodb object(*)
+        const updatedUser = await user.save();
+
+
+    // Remember that our password is still not encryted!!
+        res.json({
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
+            token: generateToken(updatedUser._id)
+        });
+
+    } else {
+        // if user does not exist, then we'll just create a 404.
+        // (When we trhow an Error it will go to middleware which will convert it to JSON)
+        res.status(404);
+        throw new Error('User not found!');
+    }
+});  
+
+
+
+
+
+export { authUser , getUserProfile, registerUser, updateUserProfile};
