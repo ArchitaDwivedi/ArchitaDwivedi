@@ -15,13 +15,11 @@ import {
 // We know that whenever we run an action, we do so with the help of dispatch().
 // getState is going to help us get access to our entire Global Store.
 // We cannot use useSelector or useState here (hooks) as this is not a react component.
-
-
 // To add an item to our cart
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-
-      // We first get the details of the product
+  // We first get the details of the product
   const { data } = await axios.get(`/api/products/${id}`);
+
 
 
     // we want to dispatch the type
@@ -39,10 +37,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     },
   });
 
-
-
-
- // Once it is stored in global store, 
+// Once it is stored in global store, 
     // We need the browser's local storage(Browser API)(inspect->Application->Storage) to make sure the cart items actually get stored and 
     // do not vanish after a simple reload. This'll store key value pairs. 
     // This will persist until the user goes and manually clears the caches, browsing history, cookies, etc.
@@ -62,25 +57,21 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,
-        // the id of the item which we want to remove
+    // the id of the item which we want to remove
     payload: id,
   });
-
-
-    // update it again after removing
+   // update it again after removing
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
 export const saveShippingAddress = (data) => (dispatch) => {
   dispatch({ type: CART_SAVE_SHIPPING_ADDRESS, payload: data });
 
-
   localStorage.setItem('shippingAddress', JSON.stringify(data));
 };
 
 export const savePaymentMethod = (data) => (dispatch) => {
   dispatch({ type: CART_SAVE_PAYMENT_METHOD, payload: data });
-
 
   localStorage.setItem('paymentMethod', JSON.stringify(data));
 };

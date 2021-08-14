@@ -4,7 +4,6 @@ import Order from '../models/orderModel.js';
 
 
 
-
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -39,9 +38,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
 
 
-
-
-
 const getOrderById = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     'user',
@@ -59,13 +55,11 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 
 
-
 // Once paypal gives us the payment confirmation (i.e paid)
 // we want to then update our existing order
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   // Using the order id in the address bar, find the entire order object
   const order = await Order.findById(req.params.id);
-
   // set its params accordingly i.e set the payment status to true, the date, time, etc.
   if (order) {
     order.isPaid = true;
@@ -85,4 +79,20 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems, getOrderById, updateOrderToPaid };
+
+
+
+
+
+
+
+// Now we will first send our token and try and get the order details
+// so that we can go and display this on the profile screen.
+// Now to get all the orders that belong to this particular user then we will
+// try and go to a protected route and get that id and then feed that id here.
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});
+
+export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders };

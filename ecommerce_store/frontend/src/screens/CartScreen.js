@@ -1,77 +1,64 @@
-import {useEffect} from 'react';
-import {Link as RouterLink} from 'react-router-dom';
-import {useDispatch,useSelector} from 'react-redux';
+import { useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-    Flex,
-    Grid,
-    Image,
-    Box,
-    Link,
-    Icon,
-    Heading,
-    Text,
-    Button,
-    Select,
+  Flex,
+  Text,
+  Grid,
+  Heading,
+  Box,
+  Image,
+  Link,
+  Select,
+  Button,
+  Icon,
 } from '@chakra-ui/react';
 import Message from '../components/Message';
-import {IoTrashBinSharp} from 'react-icons/io5';
-import {addToCart,removeFromCart} from '../actions/cartActions';
+import { IoTrashBinSharp } from 'react-icons/io5';
+import { addToCart, removeFromCart } from '../actions/cartActions';
+
 
 // just like match and history, our React Router also returns
 // location. In the location object you'll see url related info
 // i.e your path and then also your query string. The query string
 // will be under something called 'location.search'.
-const CartScreen = ({match, history, location}) => {
-    const productId = match.params.id;
-    // the + here is used to convert the string to a number
-    const qty = location.search ? +location.search.split("=")[1] : 1;
+const CartScreen = ({ match, history, location }) => {
+  const productId = match.params.id;
+  // the + here is used to convert the string to a number
+  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
-
-    const dispatch = useDispatch();
-
+  const dispatch = useDispatch();
     // get cart state
-    const cart = useSelector( (state) => state.cart);
-    const {cartItems} = cart;
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
-    useEffect( () => {
-        // if someone comes via 'Add to Cart' i.e if there is id in the URL
+  useEffect(() => {
+       // if someone comes via 'Add to Cart' i.e if there is id in the URL
         //, only then we want to dispatch
-        if (productId){
-            dispatch(addToCart(productId, qty));
-        }
-        // else if someone tries to directly access this without id, we will do nothing
-    }, [dispatch, productId, qty]);
+    if (productId) {
+      dispatch(addToCart(productId, qty));
+    } // else if someone tries to directly access this without id, we will do nothing
+  }, [dispatch, productId, qty]);
 
 
 
-
-
-    // On the cart page, we also want to add the remove from cart functionality (button)
-    const removeFromCartHandler = (id) => {
-
-        dispatch(removeFromCart(id));
-
-    }
+// On the cart page, we also want to add the remove from cart functionality (button)
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
 
 
 
-
-
-    // Button for when the customer reaches the cart page, checks everything
+// Button for when the customer reaches the cart page, checks everything
     // and now wants to checkout (place order).
-    const checkoutHandler = () => {
-        // we're adding this parameter, incase the user was not logged in.
+  const checkoutHandler = () => {
+// we're adding this parameter, incase the user was not logged in.
         // Once they log in, we will redirect them to the shipping page.
-        history.push('/login?redirect=shipping');
+    history.push('/login?redirect=shipping');
+  };
 
-
-    };
-
-
-
-
-    return (
-        <Grid gridTemplateColumns="3">
+  return (
+    <Grid gridTemplateColumns="3">
       <Box>
         <Heading mb="8">Shopping Cart</Heading>
         <Flex>
@@ -115,7 +102,6 @@ const CartScreen = ({match, history, location}) => {
                       ₹{item.price}
                     </Text>
                     <Select
-                        // if new qty is chosen, dispatch the entire addtocart action again
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
@@ -140,10 +126,6 @@ const CartScreen = ({match, history, location}) => {
                   </Grid>
                 ))}
               </Flex>
-
-
-
-
               <Flex
                 direction="column"
                 border="1px"
@@ -156,23 +138,18 @@ const CartScreen = ({match, history, location}) => {
               >
                 <Flex direction="column">
                   <Heading as="h2" fontSize="3xl">
-                    {/* Here we are trying to accumulate and depending on the quantity we are
-                    going to get the final result */}
                     Subtotal (
                     {cartItems.reduce((acc, currItem) => acc + currItem.qty, 0)}
-                    ) item/s
+                    ) items
                   </Heading>
                   <Text fontWeight="bold" fontSize="2xl" color="blue.600">
                     ₹
                     {cartItems.reduce(
-                        //depending of the quantity we decide the final price.
                       (acc, currItem) => acc + currItem.qty * currItem.price,
                       0
                     )}
                   </Text>
                 </Flex>
-
-                {/* To checkout*/}
                 <Button
                   type="button"
                   disabled={cartItems.length === 0}
@@ -189,8 +166,7 @@ const CartScreen = ({match, history, location}) => {
         </Flex>
       </Box>
     </Grid>
-
-    );
+  );
 };
 
 export default CartScreen;

@@ -6,15 +6,15 @@ import {
 } from '../controllers/productController.js';
 
 const router = express.Router();
-
 // if someone tries to go to /, we could chain multiple requests
 // .get().post(),etc
 // i.e if someone tries to get or post,etc.
 router.route('/').get(getProducts);
-
 router.route('/:id').get(getProductById);
 
 export default router;
+
+
 
 
 

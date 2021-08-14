@@ -11,8 +11,6 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from '../constants/productConstants';
 
-
-
 export const productListReducer = (state = { products: [] }, action) => {
  // The reason we're choosing these values in our cases
     // is because we want to keep track of when we request,
@@ -39,13 +37,11 @@ export const productListReducer = (state = { products: [] }, action) => {
             // in case of error we'll attach the error to payload
             // set loading to false
       return { loading: false, error: action.payload };
-        // IN any other case, we just return the state as it is.
     default:
+    // IN any other case, we just return the state as it is.
       return state;
   }
 };
-
-
 
 
 
@@ -54,12 +50,12 @@ export const productListReducer = (state = { products: [] }, action) => {
 export const productDetailsReducer = (state = { product: {} }, action) => {
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
-             // this will contain details of 
+// this will contain details of 
                 // whatever product you want to see, or something
                 // you saw previously
       return { ...state, loading: true };
     case PRODUCT_DETAILS_SUCCESS:
-                // fill with new details
+    // fill with new details
       return { loading: false, product: action.payload };
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.payload };

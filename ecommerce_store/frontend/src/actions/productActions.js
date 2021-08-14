@@ -13,8 +13,6 @@ import {
 
 
 
-
-
 // this will be responsible to get data we want to show on our homescreen
 // we need this to async and we had already learnt about rethunk.
 // so we will use that.
@@ -24,24 +22,22 @@ import {
 // Redux, gives you the dispatch function that you can accept and use.
 export const listProducts = () => async (dispatch) => {
   try {
-
-// dispatch the action object and will execute reducer function to this type.
+    // dispatch the action object and will execute reducer function to this type.
     dispatch({ type: PRODUCT_LIST_REQUEST });
 
-
-        // make a get request to get the data
+    // make a get request to get the data
     const { data } = await axios.get('/api/products');
 
-
-        // dispatch the success if successful
+    // dispatch the success if successful
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
 
-            // we're getting this error from axios. So we check if it has
-        // the response property on it and if the data.message
-  } catch (error) {
+  }
+  // we're getting this error from axios. So we check if it has
+        // the response property on it and if the data.message 
+  catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
-            // if you have given your own custom message then we prefer to display
+// if you have given your own custom message then we prefer to display
             // that else we will display the default error message we get
       payload:
         error.response && error.response.data.message
@@ -50,13 +46,6 @@ export const listProducts = () => async (dispatch) => {
     });
   }
 };
-
-
-
-
-
-
-
 
 
 
@@ -70,16 +59,14 @@ export const listProductDetails = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
         // make a get request to get the data
     const { data } = await axios.get(`/api/products/${id}`);
-        // dispatch the success if successful
+// dispatch the success if successful
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
-
-        // we're getting this error from axios. So we check if it has
+    // we're getting this error from axios. So we check if it has
         // the response property on it and if the data.message
-  } 
-  catch (error) {
+  } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-            // if you have given your own custom message then we prefer to display
+// if you have given your own custom message then we prefer to display
             // that else we will display the default error message we get
       payload:
         error.response && error.response.data.message

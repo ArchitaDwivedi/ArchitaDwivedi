@@ -16,9 +16,8 @@ import {
   orderCreateReducer,
   orderDetailsReducer,
   orderPayReducer,
+  orderMyListReducer,
 } from './reducers/orderReducers';
-
-
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -31,32 +30,21 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderMyList: orderMyListReducer,
 });
-
-
 
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : [];
 
-
-
-
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
-
-
-
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {};
-
-
-
-
 
 const initialState = {
   cart: {
@@ -66,13 +54,7 @@ const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 };
 
-
-
-
 const middleware = [thunk];
-
-
-
 
 const store = createStore(
   reducer,
@@ -80,17 +62,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
-
-
-
 export default store;
-
-
-
-
-
-
-
 
 
 
@@ -209,5 +181,6 @@ export default store;
   
   
 // export default store;
+
 
 
