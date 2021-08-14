@@ -1,5 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom';
+import { PayPalButton } from 'react-paypal-button-v2';
 import {
   // Button,
   Flex,
@@ -13,15 +15,35 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getOrderDetails } from '../actions/orderActions';
+import { disable } from 'colors';
+import { getOrderDetails, payOrder } from '../actions/orderActions';
+import { ORDER_PAY_RESET } from '../constants/orderConstants';
+
 
 const OrderScreen = ({ match }) => {
   const orderId = match.params.id;
   const dispatch = useDispatch();
 
+
+  const [sdkReady, setSdkReady] = useState(false);
+
+
   // Getting the orderDetails state from the Global store
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+
+
+
+  //Paypal
+  // get the orderPay state from the Global store
+  // Destructure two values
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
+
+
+
+
 
   // Calculating Items' Price
   // !loading must be put or we will get an error.
@@ -33,8 +55,60 @@ const OrderScreen = ({ match }) => {
   }
 
   useEffect(() => {
+      //paypal script addition
+  const addPayPalScript = async () => {
+      // get the data from the backend. Remember that in our server.js, we had
+      // written that if we get a req at /api/config/paypal then we must return the
+      // paypal client id
+    const { data: clientId } = await axios.get('/api/config/paypal');
+      // building a script tag
+    const script = document.createElement('script');
+      // The following are requirements by paypal
+    script.type = 'text/javascript';
+    script.async = true;
+    // attach script
+    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+    // once page loads
+    script.onload = () => {
+      setSdkReady(true);
+    };
+// we know document.body will always be there for access, so
+      // we use that
+    document.body.appendChild(script);
+  };
+
+
+// if our order is false and sucessPay is done, then
+    // we want to reset it in the global store.
+  if (!order || successPay) {
+    // first we clear any existing order (stale state)
+    dispatch({ type: ORDER_PAY_RESET });
+    // then we add the new order, i.e the one in our address bar
     dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
+  } 
+  // see if its not paid 
+  else if (!order.isPaid) {
+      // Once we add the script, we get access to a 'paypal' object
+      // on our window, so we'll use that here
+      // see if paypal script is loaded. If not
+    if (!window.paypal) {
+      // add it
+      addPayPalScript();
+    } else {
+      setSdkReady(true);
+    }
+  }
+}, [dispatch, orderId, successPay, order]);
+
+
+
+
+const successPaymentHandler = (paymentResult) => {
+  console.log('PAYPAL PAYMENT OBJECT', paymentResult);
+  dispatch(payOrder(orderId, paymentResult));
+};
+
+
 
   
   return loading ? (
@@ -199,7 +273,20 @@ const OrderScreen = ({ match }) => {
               </Flex>
             </Box>
 
-            {/* Will add a paypal button here */}
+            {/* if we havent paid for the order */}
+            {!order.isPaid && (
+              <Box>
+                {loadingPay && <Loader />}
+                {!sdkReady ? (
+                  <Loader />
+                ) : (
+                  <PayPalButton
+                    amount={order.totalPrice}
+                    onSuccess={successPaymentHandler}
+                  />
+                )}
+              </Box>
+            )}
           </Flex>
         </Grid>
       </Flex>

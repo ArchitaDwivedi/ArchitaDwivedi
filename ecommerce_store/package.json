@@ -1,7 +1,7 @@
 {
   "name": "rststore",
   "version": "1.0.0",
-  "description": "Ecommerce store",
+  "description": "Ecommerce Store",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -12,21 +12,28 @@
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d"
   },
-  "author": "Archita Dwivedi",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/rahulat4200/rststore2.git"
+  },
+  "author": "Rahul Sharma",
   "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/rahulat4200/rststore2/issues"
+  },
+  "homepage": "https://gitlab.com/rahulat4200/rststore2#readme",
   "dependencies": {
-    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.5",
+    "mongoose": "^5.12.10",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "concurrently": "^6.2.0",
-    "nodemon": "^2.0.12"
+    "concurrently": "^6.1.0",
+    "nodemon": "^2.0.7"
   }
 }

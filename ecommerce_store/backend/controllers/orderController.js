@@ -59,4 +59,30 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 
 
-export { addOrderItems, getOrderById };
+
+// Once paypal gives us the payment confirmation (i.e paid)
+// we want to then update our existing order
+const updateOrderToPaid = asyncHandler(async (req, res) => {
+  // Using the order id in the address bar, find the entire order object
+  const order = await Order.findById(req.params.id);
+
+  // set its params accordingly i.e set the payment status to true, the date, time, etc.
+  if (order) {
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address,
+    };
+    // finally, update the order in the database
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+export { addOrderItems, getOrderById, updateOrderToPaid };

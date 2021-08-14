@@ -33,14 +33,30 @@ app.get('/', (req, res) => {
 });
 
 
+
+
 // All product related routes will go here
 app.use('/api/products', productRoutes);
-
 // // All user related routes will go here
 app.use('/api/users', userRoutes);
-
 // // All order related routes will go here
 app.use('/api/orders', orderRoutes);
+
+
+//PayPal's data endpoint. We have made this so that we dont 
+// have to store the client id in the frontend. So essentially,
+// we'll get the client id from here
+app.get('/api/config/paypal', (req, res) => {
+    res.send(process.env.PAYPAL_CLIENT_ID);
+  });
+  
+
+
+
+
+
+
+
 
 // Middleware
 app.use(notFound);
