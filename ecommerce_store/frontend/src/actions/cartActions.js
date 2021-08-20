@@ -17,11 +17,8 @@ import {
 // We cannot use useSelector or useState here (hooks) as this is not a react component.
 // To add an item to our cart
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  // We first get the details of the product
+   // We first get the details of the product
   const { data } = await axios.get(`/api/products/${id}`);
-
-
-
     // we want to dispatch the type
     // For the payload, we only send essential things, that we may need in our
     // cartReducer.js
@@ -52,6 +49,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 
 
 
+
 // this one will not be async cause we're not making any axios call for this, cause we dont really need
 // to get or update anything from our database. Because we're using local storage for our cart storing
 export const removeFromCart = (id) => (dispatch, getState) => {
@@ -60,7 +58,7 @@ export const removeFromCart = (id) => (dispatch, getState) => {
     // the id of the item which we want to remove
     payload: id,
   });
-   // update it again after removing
+// update it again after removing
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 

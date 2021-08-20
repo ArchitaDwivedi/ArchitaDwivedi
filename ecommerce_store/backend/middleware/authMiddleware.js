@@ -1,13 +1,11 @@
 // This is our route protection
-
-
-
 // To check if the token we get is good or not.
-
 import jwt from 'jsonwebtoken';
 // could throw an error so we need to handle that
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+
+
 
 
 
@@ -38,8 +36,7 @@ const protect = asyncHandler(async (req, res, next) => {
       // '-password', means ignore password.
       req.user = await User.findById(decoded.id).select('-password');
       next();
-    } 
-    catch (error) {
+    } catch (error) {
       console.error(error);
       res.status(401);
       throw new Error('Not authorized, token failed');
@@ -57,4 +54,16 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 
-export { protect };
+
+// Admin auth middleware
+const admin = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    // Unauthorized
+    res.status(401);
+    throw new Error('Not authorized as an admin');
+  }
+};
+
+export { protect, admin };

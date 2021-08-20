@@ -129,6 +129,35 @@ const Header = () => {
             </Flex>
           </MenuItems>
         )}
+
+        {/* only if the user is an admin, show the following */}
+      {userInfo && userInfo.isAdmin && (
+          <Menu>
+            <MenuButton
+              as={Link}
+              color="white"
+              fontSize="sm"
+              fontWeight="semibold"
+              textTransform="uppercase"
+              paddingLeft="4"
+              _hover={{ textDecoration: 'none', opacity: '0.7' }}
+            >
+              Manage <Icon as={IoChevronDown} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem as={RouterLink} to="/admin/userslist">
+                All Users
+              </MenuItem>
+              <MenuItem as={RouterLink} to="/admin/productslist">
+                All Products
+              </MenuItem>
+              <MenuItem as={RouterLink} to="/admin/orderslist">
+                All Orders
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
+
       </Box>
     </Flex>
   );

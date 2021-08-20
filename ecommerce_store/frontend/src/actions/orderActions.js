@@ -72,6 +72,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 };
 
 
+
 // we will get an orderId
 // Next, we will also get a paymentResult from paypal
 export const payOrder =
@@ -95,7 +96,7 @@ export const payOrder =
         paymentResult,
         config
       );
-      // no need to send payload here
+ // no need to send payload here
       dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
     } catch (error) {
       dispatch({

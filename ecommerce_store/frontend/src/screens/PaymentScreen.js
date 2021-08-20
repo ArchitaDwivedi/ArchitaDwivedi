@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import {
   Button,
   Flex,
@@ -26,6 +26,7 @@ const PaymentScreen = ({ history }) => {
   const [paymentMethod, setPaymentMethod] = useState('paypal');
 
   const dispatch = useDispatch();
+
 
   const submitHandler = (e) => {
     e.preventDefault();

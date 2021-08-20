@@ -12,6 +12,9 @@ import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
+import ProductListScreen from './screens/ProductListScreen';
 
 
 // making an arrow function called 'App' which
@@ -48,6 +51,9 @@ const App = () => {
         <Route path="/login" component={LoginScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <Route path="/product/:id" component={ProductScreen} />
+        <Route path="/admin/user/:id/edit" component={UserEditScreen} />
+        <Route path="/admin/userslist" component={UserListScreen} />
+        <Route path="/admin/productslist" component={ProductListScreen} />
         {/* The reason we have put a ? is because, we want the id part
         to be optional. This means, if someone just tries to go to /cart, they
         should still be redirected to the cart page and if they happen to come

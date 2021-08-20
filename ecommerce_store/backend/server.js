@@ -10,20 +10,20 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 dotenv.config();
 
-
 // before our app even runs we want to connect to db
 connectDB();
 
 // our main app
 const app = express();
-app.use(express.json()); // parse the body
+// parse the body
+app.use(express.json()); 
+
 
 // using morgan middleware
 app.use(morgan('dev'));
 
 // Route/Endpoint
 app.get('/', (req, res) => {
-// res.send() to send the data back
   res.send('API is running!');
 });
 
@@ -34,6 +34,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 // // All order related routes will go here
 app.use('/api/orders', orderRoutes);
+
 
 //PayPal's data endpoint. We have made this so that we dont 
 // have to store the client id in the frontend. So essentially,

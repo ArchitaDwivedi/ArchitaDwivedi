@@ -72,7 +72,7 @@ const OrderScreen = ({ match }) => {
 
 // if our order is false and sucessPay is done, then
     // we want to reset it in the global store.
-    if (!order || successPay) {
+    if (!order || successPay || order._id != orderId) {
           // first we clear any existing order (stale state)
       dispatch({ type: ORDER_PAY_RESET });
         // then we add the new order, i.e the one in our address bar
