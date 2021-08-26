@@ -67,15 +67,17 @@ export const login = (email, password) => async (dispatch) => {
 
 
 
+
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_MY_LIST_RESET });
   dispatch({ type: USER_LIST_RESET });
- // redirect to login page
+   // redirect to login page
   window.location = '/login';
 };
+
 
 
 
@@ -116,6 +118,7 @@ export const register = (name, email, password) => async (dispatch) => {
 
 
 
+
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
@@ -144,6 +147,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     });
   }
 };
+
 
 
 
@@ -214,6 +218,7 @@ export const listUsers = () => async (dispatch, getState) => {
 
 
 
+
 export const deleteUser = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DELETE_REQUEST });
@@ -241,6 +246,8 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+
 
 
 

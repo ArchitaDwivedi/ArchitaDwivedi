@@ -11,7 +11,7 @@ export const cartReducer = (
 ) => {
   switch (action.type) {
     case CART_ADD_ITEM:
-      // first get the item the user wants to put in the cart
+    // first get the item the user wants to put in the cart
       const item = action.payload;
 
 // A person could repeat an item. So, we check to see if the item is 
@@ -19,9 +19,9 @@ export const cartReducer = (
             // ** The 'product' here is the id of our product. This is defined in the Actions file
       const existItem = state.cartItems.find((i) => i.product === item.product);
 
-     // if yes
+      // if yes
       if (existItem) {
- // we check to see if the item is 
+// we check to see if the item is 
             // already present in cart. If yes then we replace it with the existing one. 
             // Otherwise we just append the item.
 

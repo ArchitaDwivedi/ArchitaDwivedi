@@ -13,20 +13,26 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
-// import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import { login } from '../actions/userActions';
 
+
+
 const LoginScreen = ({ location, history }) => {
+  
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
+  
   const [password, setPassword] = useState('');
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const userLogin = useSelector((state) => state.userLogin);
+  
   const { loading, error, userInfo } = userLogin;
+
+  
 
   useEffect(() => {
     if (userInfo) {
@@ -34,10 +40,15 @@ const LoginScreen = ({ location, history }) => {
     }
   }, [history, userInfo, redirect]);
 
+  
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
   };
+
+  
+
 
   return (
     <Flex w="full" alignItems="center" justifyContent="center" py="5">
@@ -86,5 +97,7 @@ const LoginScreen = ({ location, history }) => {
     </Flex>
   );
 };
+
+
 
 export default LoginScreen;

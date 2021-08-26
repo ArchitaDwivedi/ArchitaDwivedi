@@ -1,20 +1,14 @@
 import mongoose from 'mongoose';
-
-
 // Building a schema i.e everything we 
 // want in this Model -> username, password, etc
 
 // An order can have 
 // user -> the user whose order this is
 // ...
-
-
-
-
 const orderSchema = mongoose.Schema(
   {
     user: {
-  // MongoDB's object id will get saved here
+      // MongoDB's object id will get saved here
         // That object id will be of one of the users hence we've
         // given 'ref: User' 
       type: mongoose.Schema.Types.ObjectId,
@@ -29,7 +23,7 @@ const orderSchema = mongoose.Schema(
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: String, required: true },
-            // product id of each product
+        // product id of each product
         product: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
@@ -90,11 +84,7 @@ const orderSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
-
 // building a model using our Schema
 const Order = mongoose.model('Order', orderSchema);
-
-
 
 export default Order;

@@ -20,34 +20,38 @@ import { getUserDetails, updateUser } from '../actions/userActions';
 import { USER_UPDATE_RESET } from '../constants/userConstants';
 
 
+
+
 const UserEditScreen = ({ match, history }) => {
   const userId = match.params.id;
 
-  const [name, setName] = useState(' ');
-  const [email, setEmail] = useState(' ');
+  const [name, setName] = useState('');
+
+  const [email, setEmail] = useState('');
+
   const [isAdmin, setIsAdmin] = useState('false');
 
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
+
   const { loading, error, user } = userDetails;
 
-
   const userUpdate = useSelector((state) => state.userUpdate);
+
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
   } = userUpdate;
 
+ 
 
   useEffect(() => {
-    // just check for any of the fields
-    // if user doesn't exist or doesn't match the URL then refetch
+    // if user doesn't exist or doesn't match URL then fetch again
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
       history.push('/admin/userslist');
-
     } else {
       if (!user.name || user._id !== userId) {
         dispatch(getUserDetails(userId));
@@ -57,12 +61,17 @@ const UserEditScreen = ({ match, history }) => {
         setIsAdmin(user.isAdmin);
       }
     }
-  },  [user, dispatch, userId, history, successUpdate]);
+  }, [user, dispatch, userId, history, successUpdate]);
+
+
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(updateUser({ _id: userId, name, email, isAdmin }));
   };
+
+
+
 
   return (
     <>
@@ -127,5 +136,7 @@ const UserEditScreen = ({ match, history }) => {
     </>
   );
 };
+
+
 
 export default UserEditScreen;

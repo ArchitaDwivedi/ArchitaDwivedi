@@ -9,7 +9,7 @@ const getProducts = asyncHandler(async (req, res) => {
 
 
 const getProductById = asyncHandler(async (req, res) => {
- // const product = products.find( (prod) => prod._id === req.params.id)
+  // const product = products.find( (prod) => prod._id === req.params.id)
   const product = await Product.findById(req.params.id);
 
   if (product) {
@@ -43,7 +43,7 @@ const createProduct = asyncHandler(async (req, res) => {
     name: 'Sample name',
     price: 0,
     user: req.user._id,
-    images: '/image/sample.jpg',
+    image: '/image/sample.jpg',
     brand: 'Sample brand',
     category: 'Sample cateogory',
     countInStock: 0,
@@ -82,10 +82,6 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-export {
-  getProducts,
-  getProductById,
-  deleteProduct,
-  createProduct,
-  updateProduct,
-};
+
+
+export {getProducts, getProductById, deleteProduct, createProduct, updateProduct};

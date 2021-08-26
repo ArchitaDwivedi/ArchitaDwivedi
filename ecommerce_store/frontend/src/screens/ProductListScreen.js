@@ -15,59 +15,70 @@ import {
 } from '@chakra-ui/react';
 import { IoPencilSharp, IoTrashBinSharp, IoAdd } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts, deleteProduct, createProduct } from '../actions/productActions';
+import {
+  listProducts,
+  deleteProduct,
+  createProduct,
+} from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { productDeleteReducer } from '../reducers/productReducer';
-import { PRODUCT_CREATE_REQUEST, 
-  PRODUCT_CREATE_SUCCESS,
-   PRODUCT_CREATE_FAIL, 
-   PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+
+
+
 
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
+
   const { loading, error, products } = productList;
 
   const userLogin = useSelector((state) => state.userLogin);
+
   const { userInfo } = userLogin;
 
-
   const productDelete = useSelector((state) => state.productDelete);
+
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
 
-  const productCreate = useSelector( state => state.productCreate)
-  const {loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct} = productCreate;
 
 
   useEffect(() => {
-    dispatch({type: PRODUCT_CREATE_RESET})
+    dispatch({ type: PRODUCT_CREATE_RESET });
 
-    if(userInfo && !userInfo.isAdmin){
+    if (userInfo && !userInfo.isAdmin) {
       history.push('/login');
     }
 
-    if (successCreate){
-      history.push(`/admin/product/${createProduct._id}/edit`);
-    } else{
-      dispatch(listProducts())
+    if (successCreate) {
+      history.push(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
     }
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successCreate,
+    createdProduct,
+  ]);
 
 
-
-
-  }, [dispatch, 
-    history, 
-    userInfo, 
-    successDelete, 
-    successCreate, 
-    createdProduct]);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
@@ -75,9 +86,14 @@ const ProductListScreen = ({ history, match }) => {
     }
   };
 
+
+
   const createProductHandler = () => {
-    
+    dispatch(createProduct());
   };
+
+
+
 
   return (
     <>
@@ -89,11 +105,11 @@ const ProductListScreen = ({ history, match }) => {
           <Icon as={IoAdd} mr="2" fontSize="xl" fontWeight="bold" />
           Create Product
         </Button>
-      {loadingDelete && <Loader/>}
-      {errorDelete && <Message type="error">{errorDelete}</Message>}
-      {loadingCreate && <Loader/>}
-      {errorCreate && <Message type="error">{errorCreate}</Message>}      
       </Flex>
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message type="error">{errorDelete}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message type="error">{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -146,5 +162,7 @@ const ProductListScreen = ({ history, match }) => {
     </>
   );
 };
+
+
 
 export default ProductListScreen;

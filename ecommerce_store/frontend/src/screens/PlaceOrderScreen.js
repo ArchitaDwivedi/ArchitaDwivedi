@@ -15,8 +15,15 @@ import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
 
+
+
+
+
+
 const PlaceOrderScreen = ({ history }) => {
+
   const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart);
 
   // Calculate Prices
@@ -28,8 +35,11 @@ const PlaceOrderScreen = ({ history }) => {
   cart.taxPrice = Number((12 * cart.itemsPrice) / 100);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
+
   const orderCreate = useSelector((state) => state.orderCreate);
+
   const { order, success, error } = orderCreate;
+
 
   const placeOrderHandler = () => {
     dispatch(
@@ -45,11 +55,16 @@ const PlaceOrderScreen = ({ history }) => {
     );
   };
 
+  
+
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
     }
   }, [history, success]);
+
+  
+
 
   return (
     <Flex w="full" py="5" direction="column">
@@ -194,5 +209,8 @@ const PlaceOrderScreen = ({ history }) => {
     </Flex>
   );
 };
+
+
+
 
 export default PlaceOrderScreen;

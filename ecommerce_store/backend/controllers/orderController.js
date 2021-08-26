@@ -16,7 +16,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
   } = req.body;
 
   if (orderItems && orderItems.length === 0) {
-    res.status(400); // Bad request
+    res.status(400); // Bad req
     throw new Error('No order items');
   } else {
     const order = new Order({
@@ -54,7 +54,6 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 
 
-
 // Once paypal gives us the payment confirmation (i.e paid)
 // we want to then update our existing order
 const updateOrderToPaid = asyncHandler(async (req, res) => {
@@ -81,18 +80,21 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 
 
 
-
-
-
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});
 
 
 // Now we will first send our token and try and get the order details
 // so that we can go and display this on the profile screen.
 // Now to get all the orders that belong to this particular user then we will
 // try and go to a protected route and get that id and then feed that id here.
-const getMyOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.user._id });
+const getOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({}).populate('user', '_id name');
   res.json(orders);
 });
 
-export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders };
+
+
+export {   addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getOrders};

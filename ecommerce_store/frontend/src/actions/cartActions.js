@@ -10,16 +10,15 @@ import {
 
 
 
-
 // Just like dispatch, Redux also gives us getState.
 // We know that whenever we run an action, we do so with the help of dispatch().
 // getState is going to help us get access to our entire Global Store.
 // We cannot use useSelector or useState here (hooks) as this is not a react component.
 // To add an item to our cart
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-   // We first get the details of the product
+  // We first get the details of the product
   const { data } = await axios.get(`/api/products/${id}`);
-    // we want to dispatch the type
+// we want to dispatch the type
     // For the payload, we only send essential things, that we may need in our
     // cartReducer.js
   dispatch({
@@ -33,6 +32,8 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       qty,
     },
   });
+
+
 
 // Once it is stored in global store, 
     // We need the browser's local storage(Browser API)(inspect->Application->Storage) to make sure the cart items actually get stored and 
@@ -48,14 +49,12 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 };
 
 
-
-
 // this one will not be async cause we're not making any axios call for this, cause we dont really need
 // to get or update anything from our database. Because we're using local storage for our cart storing
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,
-    // the id of the item which we want to remove
+     // the id of the item which we want to remove
     payload: id,
   });
 // update it again after removing

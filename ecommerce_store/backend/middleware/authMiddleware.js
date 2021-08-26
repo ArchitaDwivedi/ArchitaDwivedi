@@ -1,17 +1,11 @@
-// This is our route protection
-// To check if the token we get is good or not.
 import jwt from 'jsonwebtoken';
-// could throw an error so we need to handle that
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 
 
-
-
-
 // in middlewares there's always next as we know
 const protect = asyncHandler(async (req, res, next) => {
- // Token is going to be sent from the frontend in the request header
+// Token is going to be sent from the frontend in the request header
   // In postman, Headers>key, in that under key we write "Authorization" and value 
   // "Bearer <encrypted token>". (Bearer, since user is the bearer of this token. There are 
   // many different types of tokens.)
@@ -24,10 +18,10 @@ const protect = asyncHandler(async (req, res, next) => {
   ) {
     try {
       token = req.headers.authorization.split(' ')[1];
-      // we will be decoding the token now
+       // we will be decoding the token now
       // We will use our JWT_SECRET to see if we ourselves signed it and not someone random.
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      // decoded is the payload which has iat, expiry and id.
+        // decoded is the payload which has iat, expiry and id.
       // So now we have the id, so we can find our user by id.
 
       // Once we have that, we will get the entire object 
@@ -43,7 +37,6 @@ const protect = asyncHandler(async (req, res, next) => {
     }
   }
 
-
     // this is in case our token does not exist i.e say our user was deleted and the
     // id in our old token causes some issues as the user does not exist. So we check whether or not
     // the token exists in the first place.
@@ -52,6 +45,7 @@ const protect = asyncHandler(async (req, res, next) => {
     throw new Error('Not authorized, token failed');
   }
 });
+
 
 
 

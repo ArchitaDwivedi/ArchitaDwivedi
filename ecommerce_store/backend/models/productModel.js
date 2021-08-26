@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 // diff file.
 // We need name, rating, comment,etc
 
-
 const reviewSchema = mongoose.Schema({
   name: {
     type: String,
@@ -21,15 +20,13 @@ const reviewSchema = mongoose.Schema({
     required: true,
   },
 });
-
-
 // A product can have 
 // user -> each product will be added to page by an Admin so we need their details
 // ...
 const productSchema = mongoose.Schema(
   {
     user: {
-        // MongoDB's object id will get saved here
+ // MongoDB's object id will get saved here
         // That object id will be of one of the users hence we've
         // given 'ref: User'
       type: mongoose.Schema.Types.ObjectId,
@@ -93,8 +90,5 @@ const productSchema = mongoose.Schema(
 // Now that we've built a model, we can use Mongoose's inbuilt
 // methods to talk to our MongoDB.
 const Product = mongoose.model('Product', productSchema);
-
-
-
 
 export default Product;

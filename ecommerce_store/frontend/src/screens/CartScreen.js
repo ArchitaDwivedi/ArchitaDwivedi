@@ -18,44 +18,40 @@ import { IoTrashBinSharp } from 'react-icons/io5';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 
 
-// just like match and history, our React Router also returns
-// location. In the location object you'll see url related info
-// i.e your path and then also your query string. The query string
-// will be under something called 'location.search'.
+
 const CartScreen = ({ match, history, location }) => {
+
   const productId = match.params.id;
-  // the + here is used to convert the string to a number
+
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const dispatch = useDispatch();
-    // get cart state
+
   const cart = useSelector((state) => state.cart);
+
   const { cartItems } = cart;
 
+
+
   useEffect(() => {
-       // if someone comes via 'Add to Cart' i.e if there is id in the URL
-        //, only then we want to dispatch
     if (productId) {
       dispatch(addToCart(productId, qty));
-    } // else if someone tries to directly access this without id, we will do nothing
+    }
   }, [dispatch, productId, qty]);
 
 
 
-// On the cart page, we also want to add the remove from cart functionality (button)
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
 
 
 
-// Button for when the customer reaches the cart page, checks everything
-    // and now wants to checkout (place order).
   const checkoutHandler = () => {
-// we're adding this parameter, incase the user was not logged in.
-        // Once they log in, we will redirect them to the shipping page.
     history.push('/login?redirect=shipping');
   };
+
+
 
   return (
     <Grid gridTemplateColumns="3">
@@ -168,5 +164,7 @@ const CartScreen = ({ match, history, location }) => {
     </Grid>
   );
 };
+
+
 
 export default CartScreen;

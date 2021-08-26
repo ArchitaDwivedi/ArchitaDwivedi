@@ -8,6 +8,9 @@ import {
 } from '@chakra-ui/react';
 import { IoCaretForwardSharp } from 'react-icons/io5';
 
+
+
+
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   return (
     <Flex justifyContent="center" mb="8">
@@ -76,5 +79,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
     </Flex>
   );
 };
+
+
 
 export default CheckoutSteps;

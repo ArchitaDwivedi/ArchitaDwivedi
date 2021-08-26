@@ -17,6 +17,8 @@ import { IoChevronDown } from 'react-icons/io5';
 import { logout } from '../actions/userActions';
 
 
+
+
 const MenuItems = ({ children, url }) => {
   return (
     <Link
@@ -77,7 +79,7 @@ const Header = () => {
             to="/"
             _hover={{ color: 'whiteAlpha.700', textDecor: 'none' }}
           >
-            Ecommerce Store
+            RST Store
           </Link>
         </Heading>
       </Flex>
@@ -129,9 +131,7 @@ const Header = () => {
             </Flex>
           </MenuItems>
         )}
-
-        {/* only if the user is an admin, show the following */}
-      {userInfo && userInfo.isAdmin && (
+        {userInfo && userInfo.isAdmin && (
           <Menu>
             <MenuButton
               as={Link}
@@ -157,10 +157,12 @@ const Header = () => {
             </MenuList>
           </Menu>
         )}
-
       </Box>
     </Flex>
   );
 };
+
+
+
 
 export default Header;
