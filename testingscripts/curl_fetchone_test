@@ -1,0 +1,13 @@
+# Objective:-
+# Below is a cURL command using which we try to get the user's information. We
+# send a bearer token along with us since the route is protected.
+
+# How to use:-
+# First, start your server.
+# Copy the command below.
+# Go to your terminal/cmd. Paste it and run.
+
+
+# Command:-
+
+curl --location --request GET 'http://localhost:5000/api/products/610fd49a011a29f8c4a004cc'
