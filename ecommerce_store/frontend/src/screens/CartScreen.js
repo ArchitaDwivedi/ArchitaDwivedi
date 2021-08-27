@@ -17,21 +17,14 @@ import Message from '../components/Message';
 import { IoTrashBinSharp } from 'react-icons/io5';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 
-
-
 const CartScreen = ({ match, history, location }) => {
-
   const productId = match.params.id;
-
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
-
   const { cartItems } = cart;
-
-
 
   useEffect(() => {
     if (productId) {
@@ -39,19 +32,13 @@ const CartScreen = ({ match, history, location }) => {
     }
   }, [dispatch, productId, qty]);
 
-
-
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
 
-
-
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping');
   };
-
-
 
   return (
     <Grid gridTemplateColumns="3">
@@ -164,7 +151,5 @@ const CartScreen = ({ match, history, location }) => {
     </Grid>
   );
 };
-
-
 
 export default CartScreen;

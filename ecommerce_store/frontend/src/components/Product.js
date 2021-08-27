@@ -2,9 +2,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box, Link, Image, Flex, Heading, Text } from '@chakra-ui/react';
 import Rating from './Rating';
 
-
-
-
 const Product = ({ product }) => {
   return (
     <Link
@@ -52,8 +49,5 @@ const Product = ({ product }) => {
     </Link>
   );
 };
-
-
-
 
 export default Product;

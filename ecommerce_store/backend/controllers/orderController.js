@@ -2,8 +2,6 @@ import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 
 
-
-
 const addOrderItems = asyncHandler(async (req, res) => {
   const {
     orderItems,
@@ -34,7 +32,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
     res.status(201).json(createdOrder);
   }
 });
-
 
 
 
@@ -86,6 +83,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 });
 
 
+
 // Now we will first send our token and try and get the order details
 // so that we can go and display this on the profile screen.
 // Now to get all the orders that belong to this particular user then we will
@@ -96,5 +94,29 @@ const getOrders = asyncHandler(async (req, res) => {
 });
 
 
+const updateOrderToDelivered = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
 
-export {   addOrderItems, getOrderById, updateOrderToPaid, getMyOrders, getOrders};
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+
+
+export {
+  addOrderItems,
+  getOrderById,
+  updateOrderToPaid,
+  getMyOrders,
+  getOrders,
+  updateOrderToDelivered,
+};

@@ -26,40 +26,26 @@ import FormContainer from '../components/FormContainer';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { listMyOrders } from '../actions/orderActions';
 
-
-
 const ProfileScreen = ({ location, history }) => {
-
   const [name, setName] = useState('');
-
   const [email, setEmail] = useState('');
-
   const [password, setPassword] = useState('');
-
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
-
   const { loading, error, user } = userDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
-
   const { userInfo } = userLogin;
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-
   const { success } = userUpdateProfile;
 
   const orderMyList = useSelector((state) => state.orderMyList);
-
   const { loading: loadingOrders, error: errorOrders, orders } = orderMyList;
-
-
-
 
   useEffect(() => {
     if (!userInfo) {
@@ -75,20 +61,15 @@ const ProfileScreen = ({ location, history }) => {
     }
   }, [history, userInfo, dispatch, user]);
 
-
-
   const submitHandler = (e) => {
     e.preventDefault();
-    // if passwords are equal
+    // check if passwords are equal
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
     } else {
       dispatch(updateUserProfile({ name, email, password }));
     }
   };
-
-
-
 
   return (
     <Grid gridTemplateColumns={{ sm: '1fr', md: '1fr 1fr' }} py="5" gap="10">
@@ -206,7 +187,5 @@ const ProfileScreen = ({ location, history }) => {
     </Grid>
   );
 };
-
-
 
 export default ProfileScreen;

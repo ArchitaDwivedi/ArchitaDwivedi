@@ -24,22 +24,16 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
-
-
-
 const ProductListScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-
   const { loading, error, products } = productList;
 
   const userLogin = useSelector((state) => state.userLogin);
-
   const { userInfo } = userLogin;
 
   const productDelete = useSelector((state) => state.productDelete);
-
   const {
     loading: loadingDelete,
     error: errorDelete,
@@ -47,15 +41,12 @@ const ProductListScreen = ({ history, match }) => {
   } = productDelete;
 
   const productCreate = useSelector((state) => state.productCreate);
-  
   const {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
     product: createdProduct,
   } = productCreate;
-
-
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
@@ -78,22 +69,15 @@ const ProductListScreen = ({ history, match }) => {
     createdProduct,
   ]);
 
-
-
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteProduct(id));
     }
   };
 
-
-
   const createProductHandler = () => {
     dispatch(createProduct());
   };
-
-
-
 
   return (
     <>
@@ -162,7 +146,5 @@ const ProductListScreen = ({ history, match }) => {
     </>
   );
 };
-
-
 
 export default ProductListScreen;

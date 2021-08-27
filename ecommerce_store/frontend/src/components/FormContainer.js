@@ -1,7 +1,5 @@
 import { Flex } from '@chakra-ui/react';
 
-
-
 const FormContainer = ({ children, width = 'xl' }) => {
   return (
     <Flex
@@ -16,7 +14,5 @@ const FormContainer = ({ children, width = 'xl' }) => {
     </Flex>
   );
 };
-
-
 
 export default FormContainer;

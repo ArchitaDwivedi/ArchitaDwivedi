@@ -24,26 +24,17 @@ import { listUsers, deleteUser } from '../actions/userActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-
-
 const UserListScreen = ({ history }) => {
-
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.userList);
-
   const { loading, error, users } = userList;
 
   const userLogin = useSelector((state) => state.userLogin);
-
   const { userInfo } = userLogin;
 
   const userDelete = useSelector((state) => state.userDelete);
-
   const { success: successDelete } = userDelete;
-
-
-
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -53,17 +44,11 @@ const UserListScreen = ({ history }) => {
     }
   }, [dispatch, successDelete, history, userInfo]);
 
-  
-
-
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
       dispatch(deleteUser(id));
     }
   };
-
-
-
 
   return (
     <>
@@ -138,8 +123,5 @@ const UserListScreen = ({ history }) => {
     </>
   );
 };
-
-
-
 
 export default UserListScreen;

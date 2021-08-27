@@ -23,7 +23,7 @@ const orderSchema = mongoose.Schema(
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: String, required: true },
-        // product id of each product
+         // product id of each product
         product: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
@@ -78,7 +78,7 @@ const orderSchema = mongoose.Schema(
     deliveredAt: { type: Date },
   },
   {
-// Schema can take in more args
+    // Schema can take in more args
 // by enabling this, we'll essentially
 // log the time of when the order was placed
     timestamps: true,

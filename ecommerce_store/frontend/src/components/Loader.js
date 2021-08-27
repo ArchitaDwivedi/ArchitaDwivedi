@@ -1,7 +1,5 @@
 import { Spinner, Flex } from '@chakra-ui/react';
 
-
-
 const Loader = () => {
   return (
     <Flex
@@ -13,7 +11,5 @@ const Loader = () => {
     </Flex>
   );
 };
-
-
 
 export default Loader;

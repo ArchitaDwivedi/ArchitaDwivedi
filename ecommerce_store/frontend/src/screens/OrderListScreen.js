@@ -24,22 +24,14 @@ import { listOrders } from '../actions/orderActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-
-
 const OrderListScreen = ({ history }) => {
-
   const dispatch = useDispatch();
 
   const orderList = useSelector((state) => state.orderList);
-
   const { loading, error, orders } = orderList;
 
   const userLogin = useSelector((state) => state.userLogin);
-
   const { userInfo } = userLogin;
-
-
-
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -48,8 +40,6 @@ const OrderListScreen = ({ history }) => {
       history.push('/login');
     }
   }, [dispatch, history, userInfo]);
-
-
 
   return (
     <>
@@ -126,7 +116,5 @@ const OrderListScreen = ({ history }) => {
     </>
   );
 };
-
-
 
 export default OrderListScreen;

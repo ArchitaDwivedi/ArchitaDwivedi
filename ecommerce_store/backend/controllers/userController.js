@@ -3,6 +3,7 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 
 
+
 // First we will authenticate the user and then get the token.
 // Obviously this is going to be a POST request.
 // Our route will be /api/users/login.
@@ -13,7 +14,7 @@ import generateToken from '../utils/generateToken.js';
 const authUser = asyncHandler(async (req, res) => {
   // Get the data from the request body
   const { email, password } = req.body;
-  // get the  details of the user with that email
+
   const user = await User.findOne({ email });
   // if the user exists
   // we check if the the entered password is right
@@ -21,7 +22,6 @@ const authUser = asyncHandler(async (req, res) => {
   // if you see, our function is async. So we must await here for the function to respond.
   // (Or else we would have to use .then() which is something we dont want to do.)
   if (user && (await user.matchPassword(password))) {
-    // now we can send some json data back.
     res.json({
       _id: user._id,
       name: user.name,
@@ -61,7 +61,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      // once the user registers succesfully, we'll immediately generate a token for
+// once the user registers succesfully, we'll immediately generate a token for
       // them, so they can login
       token: generateToken(user._id),
     });// succes: something was succefully created!
@@ -90,10 +90,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 
-
 // Updating user profile
 const updateUserProfile = asyncHandler(async (req, res) => {
-   //(*)user is MongoDB object
+  //(*)user is MongoDB object
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -127,6 +126,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 
 
+
 // Admin side controller
 
 // get all users
@@ -134,7 +134,6 @@ const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
 });
-
 
 
 
@@ -150,6 +149,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
 
 
 // first get the pre-existing data before updating
@@ -187,4 +187,15 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-export {authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUser, updateUser, getUserById};
+
+
+export {
+  authUser,
+  getUserProfile,
+  registerUser,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+  updateUser,
+  getUserById,
+};

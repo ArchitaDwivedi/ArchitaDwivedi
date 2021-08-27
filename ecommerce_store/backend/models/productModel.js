@@ -5,21 +5,28 @@ import mongoose from 'mongoose';
 // we will make a review Schema as well, we wont make it in a completely 
 // diff file.
 // We need name, rating, comment,etc
-
-const reviewSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const reviewSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
   },
-  rating: {
-    type: Number,
-    required: true,
-  },
-  comment: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 // A product can have 
 // user -> each product will be added to page by an Admin so we need their details
 // ...
@@ -77,8 +84,7 @@ const productSchema = mongoose.Schema(
      // We need 'reviews' to be a collection
      // of all reviews so it'll be an array
     reviews: [reviewSchema],
-  },
-// Schema can take in more args
+  },// Schema can take in more args
 // by enabling this, we'll essentially
 // log the time of when the product was
 // created,etc

@@ -16,9 +16,6 @@ import { HiShoppingBag, HiUser, HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { IoChevronDown } from 'react-icons/io5';
 import { logout } from '../actions/userActions';
 
-
-
-
 const MenuItems = ({ children, url }) => {
   return (
     <Link
@@ -161,8 +158,5 @@ const Header = () => {
     </Flex>
   );
 };
-
-
-
 
 export default Header;

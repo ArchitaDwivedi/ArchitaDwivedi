@@ -16,31 +16,19 @@ import Message from '../components/Message';
 import FormContainer from '../components/FormContainer';
 import { register } from '../actions/userActions';
 
-
-
-
 const RegisterScreen = ({ location, history }) => {
-
   const [name, setName] = useState('');
-
   const [email, setEmail] = useState('');
-
   const [password, setPassword] = useState('');
-
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
-
   const { loading, error, userInfo } = userRegister;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
-
-
-
 
   useEffect(() => {
     if (userInfo) {
@@ -48,20 +36,16 @@ const RegisterScreen = ({ location, history }) => {
     }
   }, [history, userInfo, redirect]);
 
-  
-
   const submitHandler = (e) => {
     e.preventDefault();
-    // if passwords are equal
+    // check if passwords are equal
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
     } else {
+      // DISPATCH REGISTER
       dispatch(register(name, email, password));
     }
   };
-
-
-
 
   return (
     <Flex w="full" alignItems="center" justifyContent="center" py="5">
@@ -130,7 +114,5 @@ const RegisterScreen = ({ location, history }) => {
     </Flex>
   );
 };
-
-
 
 export default RegisterScreen;

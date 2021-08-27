@@ -6,24 +6,15 @@ import { listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-
-
 const HomeScreen = () => {
-
   const dispatch = useDispatch();
 
-
   const productList = useSelector((state) => state.productList);
-
   const { loading, products, error } = productList;
-
-
 
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
-
-
 
   return (
     <div>
@@ -44,7 +35,5 @@ const HomeScreen = () => {
     </div>
   );
 };
-
-
 
 export default HomeScreen;

@@ -18,47 +18,29 @@ import FormContainer from '../components/FormContainer';
 import { listProductDetails, updateProduct } from '../actions/productActions';
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 
-
-
-
 const ProductEditScreen = ({ match, history }) => {
-
   const productId = match.params.id;
 
-
   const [name, setName] = useState('');
-
   const [price, setPrice] = useState(0);
-
   const [image, setImage] = useState('');
-
   const [brand, setBrand] = useState('');
-
   const [countInStock, setCountInStock] = useState(0);
-
   const [category, setCategory] = useState('');
-
   const [description, setDescription] = useState('');
-
   const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
-
   const { loading, error, product } = productDetails;
 
   const productUpdate = useSelector((state) => state.productUpdate);
-
-
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
   } = productUpdate;
-
-
-
 
   useEffect(() => {
     if (successUpdate) {
@@ -79,9 +61,6 @@ const ProductEditScreen = ({ match, history }) => {
     }
   }, [dispatch, history, productId, product, successUpdate]);
 
-
-
-
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
@@ -97,8 +76,6 @@ const ProductEditScreen = ({ match, history }) => {
       })
     );
   };
-
- 
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -121,10 +98,6 @@ const ProductEditScreen = ({ match, history }) => {
       setUploading(false);
     }
   };
-
-  
-
-
 
   return (
     <>
@@ -242,8 +215,5 @@ const ProductEditScreen = ({ match, history }) => {
     </>
   );
 };
-
-
-
 
 export default ProductEditScreen;

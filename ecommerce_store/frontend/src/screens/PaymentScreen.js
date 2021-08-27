@@ -14,15 +14,11 @@ import FormContainer from '../components/FormContainer';
 import { savePaymentMethod } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 
-
-
 const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
-
-
-  // redirect if shipping address not there
+  // redirect if no shipping address
   if (!shippingAddress) {
     history.push('/shipping');
   }
@@ -31,15 +27,11 @@ const PaymentScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     history.push('/placeorder');
   };
-
-  
-
 
   return (
     <Flex w="full" alignItems="center" justifyContent="center" py="5">
@@ -71,7 +63,5 @@ const PaymentScreen = ({ history }) => {
     </Flex>
   );
 };
-
-
 
 export default PaymentScreen;

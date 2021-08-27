@@ -1,8 +1,6 @@
 import { Icon, Flex, Text, Box } from '@chakra-ui/react';
 import { IoStar, IoStarOutline, IoStarHalf } from 'react-icons/io5';
 
-
-
 const Rating = ({ value, text, color = 'red.500' }) => {
   return (
     <Flex alignItems="flex-start" direction="column">
@@ -32,7 +30,5 @@ const Rating = ({ value, text, color = 'red.500' }) => {
     </Flex>
   );
 };
-
-
 
 export default Rating;

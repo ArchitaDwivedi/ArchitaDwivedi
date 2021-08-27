@@ -7,6 +7,7 @@ import {
   productDeleteReducer,
   productCreateReducer,
   productUpdateReducer,
+  productCreateReviewReducer,
 } from './reducers/productReducer';
 import { cartReducer } from './reducers/cartReducer';
 import {
@@ -24,10 +25,8 @@ import {
   orderPayReducer,
   orderMyListReducer,
   orderListReducer,
+  orderDeliverReducer,
 } from './reducers/orderReducers';
-
-
-
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -35,6 +34,7 @@ const reducer = combineReducers({
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
+  productReviewCreate: productCreateReviewReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -48,29 +48,21 @@ const reducer = combineReducers({
   orderPay: orderPayReducer,
   orderMyList: orderMyListReducer,
   orderList: orderListReducer,
+  orderDeliver: orderDeliverReducer,
 });
 
-
-
-
-
+// Get any item that is present in localstorage
 const cartItemsFromStorage = localStorage.getItem('cartItems')
   ? JSON.parse(localStorage.getItem('cartItems'))
   : [];
-
-
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
-
-
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {};
-
-
 
 const initialState = {
   cart: {
@@ -80,11 +72,7 @@ const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 };
 
-
-
 const middleware = [thunk];
-
-
 
 const store = createStore(
   reducer,
@@ -92,10 +80,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
-
-
 export default store;
-
 
 
 

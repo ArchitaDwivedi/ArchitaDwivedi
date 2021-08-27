@@ -17,12 +17,10 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
-  PRODUCT_UPDATE_RESET,
+  PRODUCT_CREATE_REVIEW_REQUEST,
+  PRODUCT_CREATE_REVIEW_SUCCESS,
+  PRODUCT_CREATE_REVIEW_FAIL,
 } from '../constants/productConstants';
-
-
-
-
 
 
 // this will be responsible to get data we want to show on our homescreen
@@ -42,8 +40,8 @@ export const listProducts = () => async (dispatch) => {
 
     // dispatch the success if successful
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-    // we're getting this error from axios. So we check if it has
-  // the response property on it and if the data.message  
+  //   / we're getting this error from axios. So we check if it has
+  // // the response property on it and if the data.message 
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
@@ -60,9 +58,6 @@ export const listProducts = () => async (dispatch) => {
 
 
 
-
-
-
 // Action for single product.
 
 
@@ -73,7 +68,7 @@ export const listProductDetails = (id) => async (dispatch) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
     // make a get request to get the data
     const { data } = await axios.get(`/api/products/${id}`);
-     // dispatch the success if successful
+    // dispatch the success if successful
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
     // we're getting this error from axios. So we check if it has
         // the response property on it and if the data.message
@@ -89,9 +84,6 @@ export const listProductDetails = (id) => async (dispatch) => {
     });
   }
 };
-
-
-
 
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
@@ -121,10 +113,6 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 };
 
-
-
-
-
 export const createProduct = () => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_CREATE_REQUEST });
@@ -152,10 +140,6 @@ export const createProduct = () => async (dispatch, getState) => {
     });
   }
 };
-
-
-
-
 
 export const updateProduct = (productData) => async (dispatch, getState) => {
   try {
@@ -189,3 +173,37 @@ export const updateProduct = (productData) => async (dispatch, getState) => {
     });
   }
 };
+
+export const createProductReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `/api/products/${productId}/reviews`,
+        review,
+        config
+      );
+
+      dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

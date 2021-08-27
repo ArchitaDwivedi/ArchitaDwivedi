@@ -28,9 +28,6 @@ import {
 import { ORDER_MY_LIST_RESET } from '../constants/orderConstants';
 
 
-
-
-
 // we'll accept an email and a password
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -64,23 +61,14 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-
-
-
-
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_MY_LIST_RESET });
   dispatch({ type: USER_LIST_RESET });
-   // redirect to login page
   window.location = '/login';
 };
-
-
-
-
 
 export const register = (name, email, password) => async (dispatch) => {
   try {
@@ -115,10 +103,6 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-
-
-
-
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DETAILS_REQUEST });
@@ -148,11 +132,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-
-
-
-
-// to update user details 
 export const updateUserProfile = (userData) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
@@ -182,10 +161,6 @@ export const updateUserProfile = (userData) => async (dispatch, getState) => {
   }
 };
 
-
-
-
-
 export const listUsers = () => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_LIST_REQUEST });
@@ -214,11 +189,6 @@ export const listUsers = () => async (dispatch, getState) => {
   }
 };
 
-
-
-
-
-
 export const deleteUser = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_DELETE_REQUEST });
@@ -246,12 +216,6 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     });
   }
 };
-
-
-
-
-
-
 
 export const updateUser = (userData) => async (dispatch, getState) => {
   try {

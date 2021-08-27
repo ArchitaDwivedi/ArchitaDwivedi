@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 // we are importing this for our password matching logic.
 import bcrypt from 'bcryptjs';
-
 // Building a schema i.e everything we 
 // want in this Model -> username, password, etc
 
@@ -32,6 +31,7 @@ const userSchema = mongoose.Schema({
   },
 });
 
+
 // Password checking.
 // Here we will use 'this' so we can refere to the user who is 
 // accessing this function (because we want this to be available for every object.)
@@ -40,6 +40,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
     // This user's password vs whatever was entered.
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
 
 
 // it accepts a next automatically.
@@ -63,7 +64,6 @@ userSchema.pre('save', async function (next) {
   // hash it using the salt
   this.password = await bcrypt.hash(this.password, salt);
 });
-
 // building a model using our Schema
 const User = mongoose.model('User', userSchema);
 
