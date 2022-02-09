@@ -18,7 +18,7 @@ The course dictionary uses course IDs as keys and values include information abo
 
 
 
-Assuming the following input:-
+Assume the following input:-
 
 
 ac CS101 10			// adds a new course CS101 with capacity 10
@@ -42,7 +42,7 @@ ex				// exit
 
 
 
-Assuming the following input:-
+The output is as follows:-
 
 
 Adding course: CS101
