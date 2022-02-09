@@ -1,7 +1,7 @@
 Implementing a Priority Queue ADT using heap and applications in service sector simulation.
 
 Description:
-This program implements a Priority Queue ADT using heap. The application is a standard and generic logistics/supply chain where we have stochastic arrival of items (like packages at a USPS store or people arriving at a vaccine center) subject to capacity constraints. We will simulate this process and look into how a standard queue and priority queue would differ in terms of maximizing payoff subject to time constraints.
+This program implements a Priority Queue ADT using heap. The application is a standard and generic supply chain where we have stochastic arrival of items (like parcels at USPS or people arriving for some vaccine ) subject to capacity constraints. We will simulate this process and look into how a standard queue and priority queue would differ in terms of maximizing payoff subject to time constraints.
 
 
 Assuming the following input from a file (these are parameters used in the simulator):
