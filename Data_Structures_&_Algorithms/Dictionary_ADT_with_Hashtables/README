@@ -1,0 +1,90 @@
+Implement Dictionary ADT with Hash Tables and an Enrollment application that uses these.
+
+Description:
+Our Dictionary ADT is responsible for managing data elements which are going to be key:value pairs. Keys will be unique while values could contain more information associated with the key. There are two parts in this program:
+an implementor for Dictionary ADT's, and
+an implementor of application which will use the Dictionaries via the provided interfaces.
+
+
+The application is going to be a mini-enrollment system that maintains 2 dictionaries:-
+1. A dictionary of courses. 
+2. A dictionary of students. 
+
+The course dictionary uses course IDs as keys and values include information about a course. The student dictionary uses student IDs as keys and values will include information about a student.
+
+
+
+
+
+
+
+Assuming the following input:-
+
+
+ac CS101 10			// adds a new course CS101 with capacity 10
+ac CS160 5			// adds a new course CS160 with capacity 5
+en 12345 CS101 student_1	// enrolls student_1 into CS101
+ac EE123 5			// adds a new course EE123 with capacity 5
+en 23456 CS101 student_2	// enrolls student_2 into CS101
+en 23456 EE123 student_2	// enrolls student_2 into EE123
+en 23456 CS160 student_2	// enrolls student_2 into CS160, should produce error message
+pc				// prints course capacities and enrollment
+en 12345 CS160 student_1	// enrolls student_1 into CS160
+en 34567 CS160 student_3	// enrolls student_3 into CS160
+en 45678 CS160 student_4	// enrolls student_4 into CS160, should produce error message
+dc EE123 x			// deletes EE123
+dr 34567 CS160 student_3	// drops 34567 from CS160
+en 34567 EE123 student_3	// enrolls student_3 into EE123, should produce error message
+pc				// prints course capacities and enrollment
+ps				// prints students enrolled in classes
+ex				// exit
+
+
+
+
+Assuming the following input:-
+
+
+Adding course: CS101
+Adding course: CS160
+Enrolling student: 12345 into course: CS101
+Adding student: 12345
+Adding course: EE123
+Enrolling student: 23456 into course: CS101
+Adding student: 23456
+Enrolling student: 23456 into course: EE123
+Enrolling student: 23456 into course: CS160
+Cannot enroll in more than 2 courses.
+Courses:
+
+	>>PRINTING LIST>>	CS160	
+
+	>>PRINTING LIST>>	EE123	
+
+	>>PRINTING LIST>>	CS101	
+Enrolling student: 12345 into course: CS160
+Enrolling student: 34567 into course: CS160
+Adding student: 34567
+Enrolling student: 45678 into course: CS160
+Adding student: 45678
+
+Element with key EE123 removed
+Delete Course Complete
+Dropping student: 34567 from course: CS160
+Enrolling student: 34567 into course: EE123
+Course does not exist.
+Courses:
+
+	>>PRINTING LIST>>	CS160	
+
+	>>PRINTING LIST>>	CS101	
+Students:
+
+	>>PRINTING LIST>>	23456	
+
+	>>PRINTING LIST>>	34567	
+
+	>>PRINTING LIST>>	45678	
+
+	>>PRINTING LIST>>	12345	
+Exited Program
