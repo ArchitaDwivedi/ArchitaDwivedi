@@ -1,5 +1,6 @@
 Implement Dictionary ADT with Hash Tables and an Enrollment application that uses these.
 
+
 Description:
 Our Dictionary ADT is responsible for managing data elements which are going to be key:value pairs. Keys will be unique while values could contain more information associated with the key. There are two parts in this program:
 an implementor for Dictionary ADT's, and
@@ -11,8 +12,6 @@ The application is going to be a mini-enrollment system that maintains 2 diction
 2. A dictionary of students. 
 
 The course dictionary uses course IDs as keys and values include information about a course. The student dictionary uses student IDs as keys and values will include information about a student.
-
-
 
 
 
@@ -42,7 +41,7 @@ ex				// exit
 
 
 
-The output is as follows:-
+The output should be as follows:-
 
 
 Adding course: CS101
