@@ -1,0 +1,107 @@
+Implementing Graph ADT and then using it to build a stable matching application.
+
+
+Description:
+
+Stable matching (also known as stable marriage problem) is a well-known problem in computer science and economics in which you want to match elements of two equally sized groups with each other, like for some dating app. There are many real world implementations like the any choice based program or assigning residents to houses are based on this.
+
+
+In the stable marriage problem, each member of a group has ordinal preferences on elements of the other group. We essentially have two groups of men (M) and women (W) and the goal is to match each man with a woman so that the resulting matches are stable.
+
+
+Our application has the following specifications:-
+1. Two sets - one for Men and other for Women
+
+
+Each Man and Women has their preference in order. Say we have N men and N women i.e a total of 2N participants.
+
+Say that the men are M = {0,1} and women are W = {2,3}.
+Now lets assume their preferences:-
+
+0: 3 > 2 > ∅
+
+1: 2 > 3 > ∅
+
+2: 0 > 1 > ∅
+
+3: 1 > 0 > ∅
+
+
+
+The preference list above can be denoted as follows. Lets pick line one and try to decode it. The number before the colon i.e 0, is the person whose preference we are talking about. So in this case 0. So here, 0 ∈ M and so 3 > 2 means that 0 prefers to be matched with woman 3 more than woman 2.
+
+Similarly the third line can be decoded as:-
+
+2 ∈ W and so 0 > 1 means that 2 prefers to be matched with man 0 more than man 1 and so on.
+
+Each of these lines end with ∅, this simply means that they prefer to be matched with some or the other person rather than not being matched at all.
+
+
+
+We can represent matches in terms of edges in a directed graph where the vertices of the graph are the members in the set {M, W}. An edge (m, w) means that m ∈ M is matched to w ∈ W. For the set of stable matches, the graph would be:
+
+
+
+
+				JOHN----------------->JILL
+
+
+				RON----------------->RUBY
+
+
+If a graph has N vertices then there would be |M|=|W| = N/2 matches in total.
+
+
+In order to get a set of stable matches we will use an algorithm called the Gale-Shapley algorithm.
+
+For every m from set M that is unmatched, try to bond with w from set W which you haven't proposed to:
+
+	if w is unmatched, add edge from m to w in graph
+
+	else find w's present match (i.e the edge) and see if w prefers m to her present match
+
+	if w prefers m to her present match, remove the present match and add edge m to w i.e new match.
+
+
+
+
+(Note:- this algorithm is M-optimal i.e M proposing to elements in W. If the algorithm is run by w ∈ W proposing to m ∈ M, it is said to be W-Optimal. Remember that the set of M-optimal and W-optimal stable matches are not guaranteed to be the same.)
+
+
+Assume the following input:-
+
+-> The input is read from stdin. 
+The first number will be the total number of elements in both sets M and W. 
+That is, N = |M| + |W|.
+
+
+
+-> Next there is a set of numbers in form of a matrix which represent the preferences. For instance:
+
+3 4 5
+4 3 5
+3 4 5
+1 0 2
+0 1 2
+0 1 2
+
+
+So,
+
+Our total input could look like:-
+
+6
+3 4 5
+4 3 5
+3 4 5
+1 0 2
+0 1 2
+0 1 2
+
+
+
+
+Output:-
+
+M-Optimal matches are: (0, 3) (1, 4) (2, 5) 
+
